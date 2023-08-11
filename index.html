@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sign Up Form</title>
+    <link rel="stylesheet" href="public/css/style.css">
+
+
+    <script>
+        // This function will run when the page is fully loaded
+        window.onload = function() {
+            // Attach event listener to the form
+            document.querySelector('form').addEventListener('submit', function(event) {
+                event.preventDefault();  // Prevents the form from submitting the traditional way.
+                
+                const emailValue = document.querySelector('input[name="email"]').value;
+
+                // Make a POST request to the server
+                fetch('http://localhost:3000/subscribe', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        email: emailValue
+                    })
+                })
+                .then(response => response.text())
+                .then(data => {
+                    alert(data);  // Shows the response from the server.
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred. Check the console for details.');
+                });
+            });
+        };
+    </script>
+</head>
+<body>
+    <div class="container">
+        <form action="action_page.php">
+            <h1>SIGN UP FOR OUR DAILY INSIDER</h1>
+            <input type="email" placeholder="Enter your email" name="email" required>
+            <button type="submit">Subscribe</button>
+        </form>
+    </div>
+    <style>
+        
+    </style>
+</body>
+</html>
